@@ -1,17 +1,16 @@
-package com.lti.repository;
+package com.lti.service;
 
 import java.util.List;
 
 import com.lti.model.AccountHolder;
 
-public interface AccountHolderRepository
-{
+public interface AccountHolderService {
 
 	AccountHolder add(AccountHolder accountHolder);
 
-	AccountHolder update(AccountHolder accountHolder);
+	AccountHolder update(long customerId);
 
-	AccountHolder delete(AccountHolder accountHolder);
+	AccountHolder delete(long customerId);
 
 	AccountHolder findById(long customerId);
 

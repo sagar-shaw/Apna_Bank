@@ -13,14 +13,16 @@ public class AccountDetails
 		
 		@Id
 		long accountNo;//pk
+		
 		int accountTypeId;
 		String ifsccode;
 		float balance;
 		char internetBanking;
 		String status;
 		String openingDate;
-		long customerId;//fk
+
 		long cardNo;//fk
+		
 		@ManyToOne
 		@JoinColumn(name = "customerId")
 		AccountHolder accountHolder;
@@ -31,21 +33,6 @@ public class AccountDetails
 		
 		}
 
-
-		public AccountDetails(long accountNo, int accountTypeId, String ifsccode, float balance, char internetBanking,
-				String status, String openingDate, long customerId, long cardNo, AccountHolder accountHolder) {
-			super();
-			this.accountNo = accountNo;
-			this.accountTypeId = accountTypeId;
-			this.ifsccode = ifsccode;
-			this.balance = balance;
-			this.internetBanking = internetBanking;
-			this.status = status;
-			this.openingDate = openingDate;
-			this.customerId = customerId;
-			this.cardNo = cardNo;
-			this.accountHolder = accountHolder;
-		}
 
 
 		public long getAccountNo() {
@@ -118,15 +105,6 @@ public class AccountDetails
 		}
 
 
-		public long getCustomerId() {
-			return customerId;
-		}
-
-
-		public void setCustomerId(long customerId) {
-			this.customerId = customerId;
-		}
-
 
 		public long getCardNo() {
 			return cardNo;
@@ -148,15 +126,7 @@ public class AccountDetails
 		}
 
 
-		@Override
-		public String toString() {
-			return "AccountDetails [accountNo=" + accountNo + ", accountTypeId=" + accountTypeId + ", ifsccode="
-					+ ifsccode + ", balance=" + balance + ", internetBanking=" + internetBanking + ", status=" + status
-					+ ", openingDate=" + openingDate + ", customerId=" + customerId + ", cardNo=" + cardNo
-					+ ", accountHolder=" + accountHolder + "]";
-		}
-		
-		
+	
 		
 		
 		

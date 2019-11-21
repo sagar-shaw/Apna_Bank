@@ -1,26 +1,35 @@
 package com.lti.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "ADDRESS")
 public class Address 
 {
 	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "addr_seq")
+	@SequenceGenerator(sequenceName = "accholder_addr_seq", name = "addr_seq", allocationSize = 1)
    int addressId;//pk
+	
    int plotNo;
    String street;
    String city;
    String district;
    String state;
    int zip;
-   long customerId;//fk
+   
 public Address() {
 	super();
 	// TODO Auto-generated constructor stub
 }
-public Address(int addressId, int plotNo, String street, String city, String district, String state, int zip,
-		long customerId) {
+public Address(int addressId, int plotNo, String street, String city, String district, String state, int zip) 
+{
 	super();
 	this.addressId = addressId;
 	this.plotNo = plotNo;
@@ -29,7 +38,7 @@ public Address(int addressId, int plotNo, String street, String city, String dis
 	this.district = district;
 	this.state = state;
 	this.zip = zip;
-	this.customerId = customerId;
+
 }
 public int getAddressId() {
 	return addressId;
@@ -73,16 +82,12 @@ public int getZip() {
 public void setZip(int zip) {
 	this.zip = zip;
 }
-public long getCustomerId() {
-	return customerId;
-}
-public void setCustomerId(long customerId) {
-	this.customerId = customerId;
-}
+
+
 @Override
 public String toString() {
 	return "Address [addressId=" + addressId + ", plotNo=" + plotNo + ", street=" + street + ", city=" + city
-			+ ", district=" + district + ", state=" + state + ", zip=" + zip + ", customerId=" + customerId + "]";
+			+ ", district=" + district + ", state=" + state + ", zip=" + zip + "]";
 }
    
    

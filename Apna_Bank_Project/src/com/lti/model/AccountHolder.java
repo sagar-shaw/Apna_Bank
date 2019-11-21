@@ -2,19 +2,29 @@ package com.lti.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="Account_Holder")
 public class AccountHolder
 {
-	@Id	
-	int cutomerId;//pk
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "acc_seq")
+	@SequenceGenerator(sequenceName = "accholder_seq", name = "acc_seq", allocationSize = 1)
+	int customerId;//pk
+	
 	String title;
-	String fistName;
+	String firstName;
 	String middleName;
 	String lastName;
 	String dateOfBirth;//dateOfBirth
@@ -23,14 +33,19 @@ public class AccountHolder
 	long mobileNo;
 	long adhaarCardNo;
 	String panCardNo;
-	int residentialAddressId;
-	int permanentAddressId;
+	
+	@OneToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="RESIDENTIALADDRESSID")
+	Address residentialAddress;
+	
+	@OneToOne(cascade=CascadeType.PERSIST)
+	@JoinColumn(name="PERMANENTADDRESSID")
+	Address permanentAddress;
+	
 	String occupation;//fk
 	String nationality;//fk
-	long accountNo;//fk
-	int documentId;
-	@OneToMany(mappedBy="accountHolder")	
-	List<AccountDetails> accountDetails;
+	@OneToMany(mappedBy = "accountHolder")
+	private List<AccountDetails> accountDetails;
 	
 	
 public AccountHolder() {
@@ -38,14 +53,16 @@ public AccountHolder() {
 	// TODO Auto-generated constructor stub
 }
 
-public AccountHolder(int cutomerId, String title, String fistName, String middleName, String lastName,
+
+
+
+public AccountHolder(int customerId, String title, String firstName, String middleName, String lastName,
 		String dateOfBirth, String gender, String emailId, long mobileNo, long adhaarCardNo, String panCardNo,
-		int residentialAddressId, int permanentAddressId, String occupation, String nationality, long accountNo,
-		int documentId, List<AccountDetails> accountDetails) {
+		Address residentialAddress, Address permanentAddress, String occupation, String nationality) {
 	super();
-	this.cutomerId = cutomerId;
+	this.customerId = customerId;
 	this.title = title;
-	this.fistName = fistName;
+	this.firstName = firstName;
 	this.middleName = middleName;
 	this.lastName = lastName;
 	this.dateOfBirth = dateOfBirth;
@@ -54,22 +71,28 @@ public AccountHolder(int cutomerId, String title, String fistName, String middle
 	this.mobileNo = mobileNo;
 	this.adhaarCardNo = adhaarCardNo;
 	this.panCardNo = panCardNo;
-	this.residentialAddressId = residentialAddressId;
-	this.permanentAddressId = permanentAddressId;
+	this.residentialAddress = residentialAddress;
+	this.permanentAddress = permanentAddress;
 	this.occupation = occupation;
 	this.nationality = nationality;
-	this.accountNo = accountNo;
-	this.documentId = documentId;
-	this.accountDetails = accountDetails;
 }
 
-public int getCutomerId() {
-	return cutomerId;
+
+
+
+public int getCustomerId() {
+	return customerId;
 }
 
-public void setCutomerId(int cutomerId) {
-	this.cutomerId = cutomerId;
+
+
+
+public void setCustomerId(int customerId) {
+	this.customerId = customerId;
 }
+
+
+
 
 public String getTitle() {
 	return title;
@@ -79,13 +102,20 @@ public void setTitle(String title) {
 	this.title = title;
 }
 
-public String getFistName() {
-	return fistName;
+
+public String getFirstName() {
+	return firstName;
 }
 
-public void setFistName(String fistName) {
-	this.fistName = fistName;
+
+
+
+public void setFirstName(String firstName) {
+	this.firstName = firstName;
 }
+
+
+
 
 public String getMiddleName() {
 	return middleName;
@@ -151,71 +181,63 @@ public void setPanCardNo(String panCardNo) {
 	this.panCardNo = panCardNo;
 }
 
-public int getResidentialAddressId() {
-	return residentialAddressId;
-}
-
-public void setResidentialAddressId(int residentialAddressId) {
-	this.residentialAddressId = residentialAddressId;
-}
-
-public int getPermanentAddressId() {
-	return permanentAddressId;
-}
-
-public void setPermanentAddressId(int permanentAddressId) {
-	this.permanentAddressId = permanentAddressId;
-}
-
 public String getOccupation() {
 	return occupation;
 }
+public Address getResidentialAddress() {
+	return residentialAddress;
+}
+
+
+
+public void setResidentialAddress(Address residentialAddress) {
+	this.residentialAddress = residentialAddress;
+}
+
+
+
+public Address getPermanentAddress() {
+	return permanentAddress;
+}
+
+
+
+public void setPermanentAddress(Address permanentAddress) {
+	this.permanentAddress = permanentAddress;
+}
+
+
 
 public void setOccupation(String occupation) {
 	this.occupation = occupation;
 }
 
+
+
 public String getNationality() {
 	return nationality;
 }
+
+
 
 public void setNationality(String nationality) {
 	this.nationality = nationality;
 }
 
-public long getAccountNo() {
-	return accountNo;
-}
-
-public void setAccountNo(long accountNo) {
-	this.accountNo = accountNo;
-}
-
-public int getDocumentId() {
-	return documentId;
-}
-
-public void setDocumentId(int documentId) {
-	this.documentId = documentId;
-}
 
 public List<AccountDetails> getAccountDetails() {
 	return accountDetails;
 }
 
+
 public void setAccountDetails(List<AccountDetails> accountDetails) {
 	this.accountDetails = accountDetails;
 }
 
-@Override
-public String toString() {
-	return "AccountHolder [cutomerId=" + cutomerId + ", title=" + title + ", fistName=" + fistName + ", middleName="
-			+ middleName + ", lastName=" + lastName + ", dateOfBirth=" + dateOfBirth + ", gender=" + gender
-			+ ", emailId=" + emailId + ", mobileNo=" + mobileNo + ", adhaarCardNo=" + adhaarCardNo + ", panCardNo="
-			+ panCardNo + ", residentialAddressId=" + residentialAddressId + ", permanentAddressId="
-			+ permanentAddressId + ", occupation=" + occupation + ", nationality=" + nationality + ", accountNo="
-			+ accountNo + ", documentId=" + documentId + ", accountDetails=" + accountDetails + "]";
-}
+
+
+
+
 
 
 }

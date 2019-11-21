@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.model.AccountHolder;
 
@@ -15,11 +16,14 @@ public class AccountHolderRepositoryImpl implements AccountHolderRepository
 {
 	@PersistenceContext
 	  EntityManager em;
+
 	@Override
-	public void add(AccountHolder accountHolder) 
+	@Transactional
+	public AccountHolder add(AccountHolder accountHolder) 
 	{
 		em.persist(accountHolder);
 		System.out.println("insert persisted");
+		return accountHolder;
 		
 	}
 	@Override
