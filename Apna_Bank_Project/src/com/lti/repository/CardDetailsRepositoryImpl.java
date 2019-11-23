@@ -7,8 +7,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.lti.model.AccountHolder;
 import com.lti.model.CardDetails;
 
 @Repository("CardDetailsRepository")
@@ -16,20 +16,24 @@ public class CardDetailsRepositoryImpl implements CardDetailsRepository
 {
 	@PersistenceContext
 	  EntityManager em;
+	
+	@Transactional
 	@Override
-	public void add(CardDetails cardDetails) 
+	public CardDetails add(CardDetails cardDetails) 
 	{
 		em.persist(cardDetails);
 		System.out.println("insert persisted");
+		return cardDetails;
 		
 	}
+	@Transactional
 	@Override
 	public CardDetails update(CardDetails cardDetails)
 	{
 		em.merge(cardDetails);
 		return cardDetails;
 	}
-	
+	@Transactional
 	@Override
 	public CardDetails delete(CardDetails cardDetails)
 	{

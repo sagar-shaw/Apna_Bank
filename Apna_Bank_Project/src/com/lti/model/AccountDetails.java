@@ -1,9 +1,14 @@
 package com.lti.model;
 
+import java.sql.Date;
+import java.util.List;
+
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -14,20 +19,52 @@ public class AccountDetails
 		@Id
 		long accountNo;//pk
 		
-		int accountTypeId;
+		@ManyToOne
+		@JoinColumn(name = "ACCOUNTTYPEID")
+		AccountType accountType;
+	
 		String ifsccode;
 		float balance;
 		char internetBanking;
 		String status;
-		String openingDate;
+		Date openingDate;
+	
 
-		long cardNo;//fk
+		@Override
+		public String toString() {
+			return "AccountDetails [accountNo=" + accountNo + ", accountType=" + accountType + ", ifsccode=" + ifsccode
+					+ ", balance=" + balance + ", internetBanking=" + internetBanking + ", status=" + status
+					+ ", openingDate=" + openingDate + ", accountHolder=" + accountHolder + "]";
+		}
+
+
+	
+
+		
 		
 		@ManyToOne
 		@JoinColumn(name = "customerId")
 		AccountHolder accountHolder;
 		
 		
+		public AccountType getAccountType() {
+			return accountType;
+		}
+
+
+
+		public void setAccountType(AccountType accountType) {
+			this.accountType = accountType;
+		}
+
+
+
+		public void setAccountHolder(AccountHolder accountHolder) {
+			this.accountHolder = accountHolder;
+		}
+
+
+
 		public AccountDetails() 
 		{
 		
@@ -45,14 +82,7 @@ public class AccountDetails
 		}
 
 
-		public int getAccountTypeId() {
-			return accountTypeId;
-		}
-
-
-		public void setAccountTypeId(int accountTypeId) {
-			this.accountTypeId = accountTypeId;
-		}
+		
 
 
 		public String getIfsccode() {
@@ -95,25 +125,21 @@ public class AccountDetails
 		}
 
 
-		public String getOpeningDate() {
+	
+
+
+
+
+		public Date getOpeningDate() {
 			return openingDate;
 		}
 
 
-		public void setOpeningDate(String openingDate) {
+
+		public void setOpeningDate(Date openingDate) {
 			this.openingDate = openingDate;
 		}
 
-
-
-		public long getCardNo() {
-			return cardNo;
-		}
-
-
-		public void setCardNo(long cardNo) {
-			this.cardNo = cardNo;
-		}
 
 
 		public AccountHolder getAccountHolder() {

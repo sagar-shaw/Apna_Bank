@@ -22,8 +22,9 @@ public class AccountHolderController
 		{
 			ModelAndView model=null;
 			AccountHolder a1=service.add(a);
-			if(a1!=null) {
-			model=new ModelAndView("AccountHolderAdded");	
+			if(a1!=null) 
+			{
+				model=new ModelAndView("accountDetails.jsp");	
 			}
 			else
 			{
@@ -61,7 +62,7 @@ public class AccountHolderController
 	 * 
 	 * @RequestMapping(value="/display") public ModelAndView printAllAccountHolder()
 	 * { List<AccountHolder> list=service.findAllAccountHolder(); ModelAndView
-	 * model=null; model=new ModelAndView("displayAll");
+	 * model=null; model=new ModelAndView("displayAll");2
 	 * model.addObject("list",list); System.out.println(list.toString()); return
 	 * model;
 	 * 

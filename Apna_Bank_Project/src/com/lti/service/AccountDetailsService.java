@@ -8,11 +8,11 @@ public interface AccountDetailsService {
 
 	AccountDetails add(AccountDetails accountDetails);
 
-	AccountDetails update(long customerId);
+	AccountDetails update(AccountDetails accountDetails);
 
-	AccountDetails delete(long customerId);
+	AccountDetails delete(long accountNo);
 
-	AccountDetails findById(long customerId);
+	AccountDetails findById(long accountNo);
 
 	List<AccountDetails> findAll();
 

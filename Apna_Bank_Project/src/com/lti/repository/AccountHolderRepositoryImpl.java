@@ -26,24 +26,27 @@ public class AccountHolderRepositoryImpl implements AccountHolderRepository
 		return accountHolder;
 		
 	}
+	@Transactional
 	@Override
 	public AccountHolder update(AccountHolder accountHolder)
 	{
 		em.merge(accountHolder);
 		return accountHolder;
 	}
-	
+	@Transactional
 	@Override
 	public AccountHolder delete(AccountHolder accountHolder)
 	{
 		em.remove(em.merge(accountHolder));
 		return accountHolder;
 	}
+	
 	@Override
 	public AccountHolder findById(long customerId) 
 	{
 		return em.find(AccountHolder.class,new Long(customerId));
 	}
+	
 	@Override
 	public List<AccountHolder> findAll()
 	{

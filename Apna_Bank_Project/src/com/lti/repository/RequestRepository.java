@@ -7,7 +7,7 @@ import com.lti.model.Requests;
 public interface RequestRepository {
 	
 	
-	public void add(Requests requests);
+	public Requests add(Requests requests);
 	
 	public Requests update(Requests requests);
 	

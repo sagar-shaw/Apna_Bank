@@ -7,8 +7,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.lti.model.CardDetails;
 import com.lti.model.Transaction;
 
 @Repository("TransactionRepository")
@@ -19,18 +19,20 @@ public class TransactionRepositoryImpl implements TransactionRepository
 	EntityManager em;
 
 	@Override
-	public void add(Transaction transaction) {
+	@Transactional
+	public Transaction add(Transaction transaction) 
+	{
+		System.out.println("---in repo---");
 		em.persist(transaction);
-		
-		
+		return transaction;
 	}
-
+	@Transactional
 	@Override
 	public Transaction update(Transaction transaction) {
 		em.merge(transaction);
 		return transaction;
 	}
-
+	@Transactional
 	@Override
 	public Transaction delete(Transaction transaction) {
 		em.remove(em.merge(transaction));

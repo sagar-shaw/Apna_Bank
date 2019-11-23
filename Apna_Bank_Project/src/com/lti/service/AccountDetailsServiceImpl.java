@@ -4,13 +4,15 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.model.AccountDetails;
 import com.lti.repository.AccountDetailsRepository;
 
 @Service("AccountDetailsService")
 public class AccountDetailsServiceImpl implements AccountDetailsService 
-{
+{	
+	AccountDetails ac=new AccountDetails();
 	@Autowired
 	AccountDetailsRepository repository;
 
@@ -18,7 +20,7 @@ public class AccountDetailsServiceImpl implements AccountDetailsService
 		super();
 		this.repository = repository;
 	}
-
+	
 	@Override
 	public AccountDetails add(AccountDetails accountDetails) 
 	{	
@@ -26,10 +28,13 @@ public class AccountDetailsServiceImpl implements AccountDetailsService
 	}
 	
 	@Override
-	public AccountDetails update(long accountNo)
+	@Transactional
+	public AccountDetails update(AccountDetails accountDetails)
 	{
-		AccountDetails accountDetails=repository.findById(accountNo);
+	//	AccountDetails accountDetails=repository.findById(accountNo);
+		System.out.println("ads service");
 		return repository.update(accountDetails);
+		
 	}
 	
 	@Override

@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.model.Address;
 import com.lti.model.CardDetails;
@@ -16,30 +17,34 @@ public class AddressRepositoryImpl implements AddressRepository
 {
 	@PersistenceContext
 	EntityManager em;
+	
 	@Override
-	public void add(Address address) {
+	@Transactional
+	public Address add(Address address) {
 		em.persist(address);
+		return address;
 		
 		
 	}
-
+	@Transactional
 	@Override
 	public Address update(Address address) {
 		em.merge(address);
 		return null;
 	}
-
+	@Transactional
 	@Override
 	public Address delete(Address address) {
 		em.remove(em.merge(address));
 		return address;
 	}
-
+	@Transactional
 	@Override
 	public Address findById(int addressId) {
 		return em.find(Address.class,new Integer(addressId));
 		
 	}
+	@Transactional
 	@Override
 	public List<Address> findAll() {
 		String q="Select all from Address all";

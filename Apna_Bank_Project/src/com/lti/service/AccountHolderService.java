@@ -3,6 +3,7 @@ package com.lti.service;
 import java.util.List;
 
 import com.lti.model.AccountHolder;
+import com.lti.model.InternetBanking;
 
 public interface AccountHolderService {
 

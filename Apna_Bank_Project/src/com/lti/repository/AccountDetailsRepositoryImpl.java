@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.model.AccountDetails;
 
@@ -14,29 +15,33 @@ public class AccountDetailsRepositoryImpl implements AccountDetailsRepository
 {
 	@PersistenceContext
 	  EntityManager em;
+	
+	
+	@Transactional
 	public AccountDetails add(AccountDetails accountDetails) 
 	{
 		em.persist(accountDetails);
 		System.out.println("insert persisted");
 		return accountDetails;
 	}
-
+	@Transactional
 	public AccountDetails update(AccountDetails accountDetails)
-	{
+	{  System.out.println("ads repo");
 		em.merge(accountDetails);
 		return accountDetails;
 	}
 	
-
+	@Transactional
 	public AccountDetails delete(AccountDetails accountDetails)
 	{
 		em.remove(em.merge(accountDetails));
 		return accountDetails;
 	}
-
 	public AccountDetails findById(long accountNo) 
 	{
-		return em.find(AccountDetails.class,new Long(accountNo));
+		AccountDetails a= em.find(AccountDetails.class,accountNo);
+		System.out.println("in repo"+a);
+		 return a;
 	}
 
 	public List<AccountDetails> findAll()

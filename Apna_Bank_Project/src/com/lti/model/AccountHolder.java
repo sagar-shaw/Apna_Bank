@@ -45,7 +45,7 @@ public class AccountHolder
 	String occupation;//fk
 	String nationality;//fk
 	@OneToMany(mappedBy = "accountHolder")
-	private List<AccountDetails> accountDetails;
+	List<AccountDetails> accountDetails;
 	
 	
 public AccountHolder() {

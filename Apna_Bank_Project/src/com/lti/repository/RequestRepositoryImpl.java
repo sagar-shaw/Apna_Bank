@@ -6,26 +6,30 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import org.omg.CORBA.Request;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.model.Requests;
 
+@Repository("RequestRepository")
 public class RequestRepositoryImpl implements RequestRepository
 {
 	@PersistenceContext
 	EntityManager em;
 	@Override
-	public void add(Requests requests) {
+	@Transactional
+	public Requests add(Requests requests) {
 		em.persist(requests);
+		return requests;
 		
 	}
-
+	@Transactional
 	@Override
 	public Requests update(Requests requests) {
 		em.merge(requests);
 		return requests;
 	}
-
+	@Transactional
 	@Override
 	public Requests delete(Requests requests) {
 		em.remove(em.merge(requests));

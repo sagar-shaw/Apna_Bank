@@ -15,7 +15,7 @@ public class AccountHolderServiceImpl implements AccountHolderService
 {
 	@Autowired
 	AccountHolderRepository repository;
-
+	AccountDetailsService accountDetailsService;
 	public AccountHolderServiceImpl(AccountHolderRepository repository) {
 		super();
 		this.repository = repository;
