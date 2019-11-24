@@ -14,7 +14,7 @@
         
             <label for="title"><b>Title</b></label>
           
-            <input type="text"  name="title" required>
+            <input type="text"  name="title" >
             <br>
             <br>
 
@@ -26,83 +26,83 @@
             
             <label for="middlename"><b>Middle Name</b></label>
            
-            <input type="text"  name="middleName" required>
+            <input type="text"  name="middleName" >
             <br>  <br>
 
             <label for="lastname"><b>Last Name</b></label>
            
-            <input type="text"  name="lastName" required>
+            <input type="text"  name="lastName" required >
             <br>  <br>
 
             
             <label for="dob"><b>Date Of Birth</b></label>
           
-            <input type="text"  name="dateOfBirth" required>
+            <input type="text"  name="dateOfBirth" >
             <br>  <br>
 
             
             <label for="gender"><b>Gender</b></label>
             
-            <input type="text"  name="gender" required>
+            <input type="text"  name="gender" >
             <br>  <br>
 
             <label for="email"><b>Email</b></label>
           
-            <input type="email"  name="emailId" required>
+            <input type="email"  name="emailId" >
             <br>  <br>
 
             <label for="phno"><b>Phone number</b></label>
            
-            <input type="number" name="mobileNo" required>
+            <input type="number" name="mobileNo" >
             <br>  <br>
 
             <label for="adharno"><b>Adhaar Card Number</b></label>
             
-            <input type="text"  name="adhaarCardNo" required>
+            <input type="text"  name="adhaarCardNo" >
             <br>  <br>
 
             <label for="panno"><b>PAN Card Number</b></label>
             
-            <input type="text"  name="panCardNo" required>
+            <input type="text"  name="panCardNo" >
             <br>  <br>
             
             <h3>Residential Address<br>
-			Plot No :<input type="text"  name="residentialAddress.plotNo" required>
+			Plot No :<input type="text"  name="residentialAddress.plotNo" >
             <br>  <br>
-            Street :<input type="text"  name="residentialAddress.street" required>
+            Street :<input type="text"  name="residentialAddress.street" >
             <br>  <br>
-            City :<input type="text"  name="residentialAddress.city" required>
+            City :<input type="text"  name="residentialAddress.city" >
             <br>  <br>
-            District :<input type="text"  name="residentialAddress.district" required>
+            District :<input type="text"  name="residentialAddress.district" >
             <br>  <br>
-            State :<input type="text"  name="residentialAddress.state" required>
+            State :<input type="text"  name="residentialAddress.state" >
             <br>  <br>
-            Zip code :<input type="text"  name="residentialAddress.zip" required>
+            Zip code :<input type="text"  name="residentialAddress.zip" >
           
             <br>  <br>
             <h3>Permanent Address<br>
-			Plot No :<input type="text"  name="permanentAddress.plotNo" required>
+			Plot No :<input type="text"  name="permanentAddress.plotNo" >
             <br>  <br>
-            Street :<input type="text"  name="permanentAddress.street" required>
+            Street :<input type="text"  name="permanentAddress.street" >
             <br>  <br>
-            City :<input type="text"  name="permanentAddress.city" required>
+            City :<input type="text"  name="permanentAddress.city" >
             <br>  <br>
-            District :<input type="text"  name="permanentAddress.district" required>
+            District :<input type="text"  name="permanentAddress.district" >
             <br>  <br>
-            State :<input type="text"  name="permanentAddress.state" required>
+            State :<input type="text"  name="permanentAddress.state" >
             <br>  <br>
-            Zip code :<input type="text"  name="permanentAddress.zip" required>
+            Zip code :<input type="text"  name="permanentAddress.zip" >
           
             <br>  <br>
 
             <label for="occupation"><b>Occupation</b></label>
             
-            <input type="text"  name="occupation" required>
+            <input type="text"  name="occupation" >
             <br>  <br>
 
             <label for="nationality"><b>Nationality</b></label>
          
-            <input type="text"  name="nationality" required>
+            <input type="text"  name="nationality" >
             <br>  <br>
 
 <!--             <input type="number"  name="accno" required> -->
@@ -114,27 +114,42 @@
 <!--             <br>  <br> -->
 
             <input type="submit" value="Submit">
-            </form>
+ </form>
             
+    <br><br><br><br>        
             
-            
-            //branch details
-<form action ="/accountDetails", method="Post">
-   <label for="Account type"><b>Account type</b></label>
-  <select name="Account type">
-  <option value="savings">savings</option>
-  <option value="current">current</option>
+  <!--          branch details-->
+<form action ="createAccount", method="Post">
+   <label for="Accounttype"><b>Account type</b></label>
+  <select name="type">
+  <option value="1">Savings Account</option>
+  <option value="2">Current Account</option>
   </select>
-
+<br><br>
   <label for="branch"><b>Branch</b></label>
   <select name="ifsccode">
-  <option value="bangalore">Bangalore</option>
-  <option value="kolkata">kolkata</option>
-  <option value="delhi">Delhi</option>
-  <option value="pune">Pune</option>
-  <option value="mumbai">Mumbai</option>
-  
+  <option value="IFSC111">Bangalore</option>
+  <option value="IFSC112">kolkata</option>
+  <option value="IFSC113">Delhi</option>
+  <option value="IFSC114">Pune</option>
+  <option value="IFSC111">Mumbai</option>
 </select>
+ <input type="submit" value="Submit">
 </form>
+
+<br><br>
+//documents
+<form method="POST" action="documentUpload" enctype="multipart/form-data">
+		Enter Aadhar Card number: <input type="text" name="name"><br /> <br />
+		Upload your Aadhar Card: <input type="file" name="file"><br /> 
+		Enter PAN number: <input type="text" name="name"><br /> <br />
+		Upload your PAN Card: <input type="file" name="file"><br /> 
+		Enter your firstName: <input type="text" name="name"><br /> <br />
+		Upload your passport photograph: <input type="file" name="file"><br /> 
+		
+		<input type="submit" value="Upload"> Press here to upload the file!
+	</form>
+	
+
 </body>
 </html>

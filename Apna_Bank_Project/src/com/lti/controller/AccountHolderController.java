@@ -6,25 +6,34 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lti.model.AccountHolder;
 import com.lti.service.AccountHolderService;
 
 @Controller
+@SessionAttributes("AccountHolder")
 public class AccountHolderController 
 {
 		@Autowired
 		AccountHolderService service;
 		
+		 @ModelAttribute("AccountHolder")
+		 public AccountHolder setUpUserForm()
+		 {
+		      return new AccountHolder();
+		 }
+		
 		@RequestMapping(value="/add",method=RequestMethod.POST)
-		public ModelAndView addAccountHolder(@ModelAttribute AccountHolder a)
+		public ModelAndView addAccountHolder(@ModelAttribute("AccountHolder") AccountHolder a)
 		{
 			ModelAndView model=null;
 			AccountHolder a1=service.add(a);
 			if(a1!=null) 
 			{
-				model=new ModelAndView("accountDetails.jsp");	
+				String redirectUrl="addAccountHolder.jsp";
+				model= new ModelAndView("redirect:" + redirectUrl);
 			}
 			else
 			{

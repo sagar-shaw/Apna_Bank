@@ -9,7 +9,8 @@ import com.lti.model.CardDetails;
 import com.lti.repository.CardDetailsRepository;
 @Service("CardDetailsService")
 
-public class CardDetailsServiceImpl implements CardDetailsService {
+public class CardDetailsServiceImpl implements CardDetailsService
+{
 	@Autowired
 	CardDetailsRepository cardDetailsRepository;
 	
