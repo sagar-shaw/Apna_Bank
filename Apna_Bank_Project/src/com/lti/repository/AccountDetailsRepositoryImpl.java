@@ -37,9 +37,11 @@ public class AccountDetailsRepositoryImpl implements AccountDetailsRepository
 		em.remove(em.merge(accountDetails));
 		return accountDetails;
 	}
+	
+	@Transactional
 	public AccountDetails findById(long accountNo) 
 	{
-		AccountDetails a= em.find(AccountDetails.class,accountNo);
+		AccountDetails a= em.find(AccountDetails.class, new Long (accountNo));
 		System.out.println("in repo"+a);
 		 return a;
 	}

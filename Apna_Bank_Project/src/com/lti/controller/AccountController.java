@@ -40,7 +40,7 @@ public class AccountController
 	 }
 	
 	@RequestMapping(value="/createAccount",method=RequestMethod.POST)
-	public ModelAndView addAccountHolder(@SessionAttribute("AccountHolder") AccountHolder accountHolder, String ifsccode,String type,@ModelAttribute("account") AccountDetails account )
+	public ModelAndView addAccountHolder(@SessionAttribute("AccountHolder") AccountHolder accountHolder, String ifsccode,String type, @ModelAttribute("account") AccountDetails account )
 	{
 		
 		System.out.println("Through session :"+accountHolder);
@@ -61,11 +61,10 @@ public class AccountController
 		
 		account.setStatus("Active");
 		
-		int customerId=accountHolder.getCustomerId();
+		long customerId=accountHolder.getCustomerId();
 		AccountHolder ah=new AccountHolder();
 		ah.setCustomerId(customerId);
 		account.setAccountholder(ah);
-		
 		AccountDetails a=service.add(account);
 		
 		System.out.println(a);

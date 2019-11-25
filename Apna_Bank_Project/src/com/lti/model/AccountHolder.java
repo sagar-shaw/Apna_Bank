@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +22,7 @@ public class AccountHolder
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "acc_seq")
 	@SequenceGenerator(sequenceName = "accholder_seq", name = "acc_seq", allocationSize = 1)
-	int customerId;//pk
+	long customerId;//pk
 	
 	String title;
 	String firstName;
@@ -56,7 +57,7 @@ public AccountHolder() {
 
 
 
-public AccountHolder(int customerId, String title, String firstName, String middleName, String lastName,
+public AccountHolder(long customerId, String title, String firstName, String middleName, String lastName,
 		String dateOfBirth, String gender, String emailId, long mobileNo, long adhaarCardNo, String panCardNo,
 		Address residentialAddress, Address permanentAddress, String occupation, String nationality) {
 	super();
@@ -80,14 +81,19 @@ public AccountHolder(int customerId, String title, String firstName, String midd
 
 
 
-public int getCustomerId() {
+
+
+
+
+
+public long getCustomerId() {
 	return customerId;
 }
 
 
 
 
-public void setCustomerId(int customerId) {
+public void setCustomerId(long customerId) {
 	this.customerId = customerId;
 }
 
@@ -233,6 +239,10 @@ public List<AccountDetails> getAccountDetails() {
 public void setAccountDetails(List<AccountDetails> accountDetails) {
 	this.accountDetails = accountDetails;
 }
+
+
+
+
 
 
 

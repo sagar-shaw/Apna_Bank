@@ -9,10 +9,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lti.model.AccountDetails;
+import com.lti.model.AccountHolder;
 import com.lti.model.InternetBanking;
 import com.lti.service.AccountDetailsService;
+import com.lti.service.AccountHolderService;
+import com.lti.service.EmailService;
 import com.lti.service.InternetBankingService;
 @Controller
+
 public class InternetBankingController 
 {
 	@Autowired
@@ -20,6 +24,12 @@ public class InternetBankingController
 	
 	@Autowired
 	AccountDetailsService acservice;
+	
+	@Autowired
+	AccountHolderService ahservice;
+	
+	@Autowired
+	EmailService emailService; 
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public ModelAndView addInternetBanking(@ModelAttribute InternetBanking ib)
@@ -40,6 +50,14 @@ public class InternetBankingController
 			System.out.println("Account not found");
 			model=new ModelAndView("notRegistered");	
 		}
+		AccountHolder ah=ahservice.findById(ad.getAccountHolder().getCustomerId());
+		String mailId=ah.getEmailId();
+		String subject="Registration form submitted Successfully";
+		String message="Dear "+ah.getFirstName()+",\n\t Greetings from APNA BANK!!"
+				+ "\n Your request for internet banking account has been successfully registered. Our team will soon process it."
+				+ " Till then enjoy banking with us. \n \n Best Regards,\n APNA BANK";
+		emailService.send(mailId,subject,message);
+		
 		return model;
 		
 		
@@ -72,5 +90,7 @@ public class InternetBankingController
 		  return model;
 	  
 	  }
+	  
+
 	 
 }

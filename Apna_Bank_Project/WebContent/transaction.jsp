@@ -8,8 +8,12 @@
 </head>
 <form action="transaction" method="POST">
 <body>
-Account No<input type="number" name="accountDetails.accountNo"><br>
-payeeno<input type="number" name="recipentAccountNo"><br>
+Card No<input type="number" name="cardNo" value="5555555555555"><br>
+CVV<input type="number" name="cvv" value="123"><br>
+CVV<input type="date" name="issueDate" value="22-02-97"><br>
+CVV<input type="date" name="expiryDate" value="22-02-98"><br>
+
+payeeno<input type="number" name="recipentAccountNo" value="1000041"><br>
 amt<input type="number" name="amount"><br>
 <input type="submit" value="ok">
 </form>

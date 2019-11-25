@@ -17,5 +17,6 @@ public interface InternetBankingService {
 	InternetBanking findById(String userId);
 
 	List<InternetBanking> findAll();
+	InternetBanking findByAccountNo(long accountNo);
 
 }

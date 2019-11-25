@@ -11,4 +11,6 @@ public interface InternetBankingRepository {
 	public InternetBanking delete(InternetBanking internetBanking);
 	public InternetBanking findById(String userId);
 	public List<InternetBanking> findAll();
+	public InternetBanking findByAccountNo(long accountNo);
+
 }

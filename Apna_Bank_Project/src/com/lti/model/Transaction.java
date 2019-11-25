@@ -14,8 +14,8 @@ import javax.persistence.SequenceGenerator;
 public class Transaction
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "trans_seq")
-	@SequenceGenerator(sequenceName = "accholder_seq", name = "trans_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "t_seq")
+	@SequenceGenerator(sequenceName = "TRANS_SEQ", name = "t_seq", allocationSize = 1)
     int transactionId;//pk
 	
 	@ManyToOne

@@ -17,8 +17,6 @@ import javax.persistence.Table;
 public class AccountType 
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "type_seq")
-	@SequenceGenerator(sequenceName = "accholder_seq", name = "type_seq", allocationSize = 1)
 	int TypeId;
 	
 	@Column(name="TYPE")

@@ -53,6 +53,12 @@ public class InternetBankingServiceImpl  implements InternetBankingService{
 	{
 		return internetBankingRepository.findAll();
 	}
+
+	@Override
+	public InternetBanking findByAccountNo(long accountNo)
+	{
+		return internetBankingRepository.findByAccountNo(accountNo);
+	}
 	
 	
 

@@ -9,9 +9,9 @@ public interface AccountHolderService {
 
 	AccountHolder add(AccountHolder accountHolder);
 
-	AccountHolder update(long customerId);
+	AccountHolder update(AccountHolder accountHolder);
 
-	AccountHolder delete(long customerId);
+	AccountHolder delete(AccountHolder accountHolder);
 
 	AccountHolder findById(long customerId);
 

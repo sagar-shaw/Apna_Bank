@@ -28,16 +28,14 @@ public class AccountHolderServiceImpl implements AccountHolderService
 	}
 	
 	@Override
-	public AccountHolder update(long customerId)
+	public AccountHolder update(AccountHolder accountHolder)
 	{
-		AccountHolder accountHolder=repository.findById(customerId);
 		return repository.update(accountHolder);
 	}
 	
 	@Override
-	public AccountHolder delete(long customerId)
+	public AccountHolder delete(AccountHolder accountHolder)
 	{
-		AccountHolder accountHolder=repository.findById(customerId);
 		return repository.delete(accountHolder);
 	}
 	@Override

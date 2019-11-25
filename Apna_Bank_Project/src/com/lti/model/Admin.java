@@ -7,10 +7,10 @@ import javax.persistence.Id;
 public class Admin
 {
 	@Id
-	int empId;
-    String name;
-    String userId;
-    String password;
+	public int empId;
+	public String name;
+    public String userId;
+    public String password;
 	public Admin() {
 		super();
 		// TODO Auto-generated constructor stub

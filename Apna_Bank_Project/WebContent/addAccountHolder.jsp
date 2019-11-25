@@ -140,16 +140,13 @@
 <br><br>
 //documents
 <form method="POST" action="documentUpload" enctype="multipart/form-data">
-		Enter Aadhar Card number: <input type="text" name="name"><br /> <br />
 		Upload your Aadhar Card: <input type="file" name="file"><br /> 
-		Enter PAN number: <input type="text" name="name"><br /> <br />
+		Enter Aadhar Card number: <input type="text" name="fileName"><br /> <br /> 
 		Upload your PAN Card: <input type="file" name="file"><br /> 
-		Enter your firstName: <input type="text" name="name"><br /> <br />
+		Enter PAN number: <input type="text" name="fileName"><br /> <br />
 		Upload your passport photograph: <input type="file" name="file"><br /> 
-		
 		<input type="submit" value="Upload"> Press here to upload the file!
 	</form>
-	
 
 </body>
 </html>

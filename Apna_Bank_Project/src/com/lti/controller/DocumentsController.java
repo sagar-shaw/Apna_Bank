@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 
+import javax.servlet.annotation.MultipartConfig;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,59 +21,63 @@ import com.lti.model.Documents;
 import com.lti.service.DocumentsService;
 
 @Controller
+@MultipartConfig
+
 public class DocumentsController 
 { 	
 	@Autowired
 	DocumentsService documentsService;
 	
 	@RequestMapping(value = "/documentUpload", method = RequestMethod.POST)
-	public void uploadMultipleFileHandler(@RequestParam("name") String[] names,	@RequestParam("file") MultipartFile[] files,@SessionAttribute("AccountHolder") AccountHolder accountHolder,@SessionAttribute("account") AccountDetails account)
+	public void uploadMultipleFileHandler(@RequestParam("file") MultipartFile[] files,@SessionAttribute("AccountHolder") AccountHolder accountHolder,@SessionAttribute("account") AccountDetails account)
 	{
-
-		if (files.length != names.length)
+		if (files.length != 3)
 			System.out.println("Mandatory information missing"); 
-		String documentNames[]=null;
-		
-		for (int i = 0; i <= 3; i++)
+		String documentNames[]=new String[3];
+		documentNames[0]=new String(accountHolder.getCustomerId()+"_Adhaar"+".pdf");
+		documentNames[1]=new String(accountHolder.getCustomerId()+"_PAN"+".pdf");
+		documentNames[2]=new String(accountHolder.getCustomerId()+"_Photo"+".pdf");
+		for (int i = 0; i < 3; i++)
 		{
 			MultipartFile file = files[i];
-			
-			String name = names[i]+".pdf";
-			if(i==3)
-				name=accountHolder.getCustomerId()+".pdf";
-			documentNames[i]=name;
+			//String name = "abc.pdf";//names[i]+".pdf";
+			//if(i==3)
+			//	name=accountHolder.getCustomerId()+".pdf";
+			//documentNames[i]=name;
 			try 
 			{
 				byte[] bytes = file.getBytes();
 				
-				String rootPath = System.getProperty("Apna_Bank_Project");
+				String rootPath = System.getProperty("Apna_Bank_Project/Documents");
 				File dir = new File(rootPath + File.separator + "Documents");
 				System.out.println(dir.getAbsolutePath());
 				if (!dir.exists())
 					dir.mkdirs();
 
 				// Create the file on server
-				File file1= new File(dir.getAbsolutePath() + File.separator + name);
+				File file1= new File(dir.getAbsolutePath() + File.separator + documentNames[i]);
 				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(file1));
 				stream.write(bytes);
 				stream.close();
 
-				System.out.println("You successfully uploaded file=" + name );
+				System.out.println("You successfully uploaded file=" + documentNames[i] );
 			} 
 			catch (Exception e) {
-				System.out.println("You successfully uploaded file=" + name );
+				System.out.println("You successfully uploaded file=" + documentNames[i] );
 			}
 		}
+		
+		System.out.println(account);
 		Documents d =new Documents();
-		d.setAdhaarCardNo(names[0]);
-		d.setAccountDetails(account);
-		d.setPanCardNo(names[1]);
-		d.setPhoto(names[2]);
+		d.setAdhaarCardNo(documentNames[0]);
+		d.setAccountNo(account.getAccountNo());
+		d.setPanCardNo(documentNames[1]);
+		d.setPhoto(documentNames[2]);
 		documentsService.add(d);
 		System.out.println(d);
 		
 	}
+}
 	
 	
 
-}

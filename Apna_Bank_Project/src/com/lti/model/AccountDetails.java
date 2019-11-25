@@ -34,7 +34,7 @@ public class AccountDetails
 		String status;
 		Date openingDate;
 		
-		@ManyToOne
+		@ManyToOne(fetch=FetchType.LAZY)
 		@JoinColumn(name = "customerId")
 		AccountHolder accountHolder;
 
