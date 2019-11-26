@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lti.model.AccountDetails;
@@ -16,7 +17,7 @@ import com.lti.service.AccountHolderService;
 import com.lti.service.EmailService;
 import com.lti.service.InternetBankingService;
 @Controller
-
+@SessionAttributes("User")
 public class InternetBankingController 
 {
 	@Autowired
@@ -29,7 +30,14 @@ public class InternetBankingController
 	AccountHolderService ahservice;
 	
 	@Autowired
-	EmailService emailService; 
+	EmailService emailService;
+	
+	 @ModelAttribute("User")
+	 public InternetBanking setUpUserForm()
+	 {
+	      return new InternetBanking();
+	 }
+	
 	
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public ModelAndView addInternetBanking(@ModelAttribute InternetBanking ib)
@@ -65,21 +73,23 @@ public class InternetBankingController
 	
 	
 	  @RequestMapping(value="/login",method=RequestMethod.POST) 
-	  public ModelAndView login(@RequestParam String userId,@RequestParam String password)
+	  public ModelAndView login(@ModelAttribute("User") InternetBanking user)
 	  {
-		  InternetBanking incomingUser=new InternetBanking();
+		
 		  ModelAndView model=null;
-		  System.out.println(userId + " " +password);
-		  incomingUser=service.findById(userId);
+		  InternetBanking incomingUser=service.findById(user.getUserId());
+		  user.setAccountDetails(incomingUser.getAccountDetails());
+		  user.setPassword(null);
 		  System.out.println(incomingUser);
 		  if(incomingUser!=null)
 		  {
-			  if(password.equals(incomingUser.getPassword()))
+			  if(incomingUser.getPassword().equals(incomingUser.getPassword()))
 			  {
 				  model= new ModelAndView("loginSuccess"); 
 			  }
 			  else
 			  {
+				  model= new ModelAndView("loginFailed"); 
 				  System.out.println("Incorrect Password");
 			  }
 		  }

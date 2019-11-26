@@ -62,10 +62,19 @@ public class InternetBankingRepositoryImpl implements InternetBankingRepository
 
 	@Override
 	public InternetBanking findByAccountNo(long accountNo) {
-		String q="select a from InternetBanking a where a.accountNo="+accountNo;
+		String q="select a from InternetBanking a where a.accountDetails.accountNo="+accountNo;
 		TypedQuery<InternetBanking> query=em.createQuery(q,InternetBanking.class);
-		InternetBanking i=query.getSingleResult();
+		InternetBanking i;
+		try {
+				i=query.getSingleResult();
+		}
+		catch(Exception e)
+		{
+			return null;
+		}
+		
 		return i;
+	
 	}	
 	
 }

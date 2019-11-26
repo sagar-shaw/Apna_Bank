@@ -45,10 +45,12 @@ public class TransactionRepositoryImpl implements TransactionRepository
 	}
 
 	@Override
-	public List<Transaction> findAll() {
-		String q="Select all from Transaction all";
+	public List<Transaction> findAll()
+	{
+		String q="Select a from Transaction a";
 		TypedQuery<Transaction> query=em.createQuery(q,Transaction.class);
 		List<Transaction> list=query.getResultList();
+		System.out.println(list);
 		return list;
 	}
 

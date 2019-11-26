@@ -10,10 +10,10 @@
 <center>
 <h1>Sign In</h1>
 <form action="login" method="POST">
-User ID:<input type="text" name="userId">
+User ID:<input type="text" name="userId">  <a href="forgotUserId.jsp">forgot userId!</a>
 <br>
 <br>
-Password:<input type="password" name="password">
+Password:<input type="password" name="password"> <a href="forgotPassword.jsp">forgot password!</a>
 <br>
 <br>
 <input type="submit" value="login">

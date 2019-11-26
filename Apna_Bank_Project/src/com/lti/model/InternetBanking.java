@@ -15,10 +15,9 @@ public class InternetBanking
 		@Id
 		String userId;//pk
 		
-		@OneToOne(fetch=FetchType.LAZY)
+		@OneToOne(fetch=FetchType.EAGER)
 		@JoinColumn(name="ACCOUNTNO")
 		AccountDetails accountDetails;
-		
 		
 		String password;
 		String profilePassword;
@@ -54,6 +53,10 @@ public class InternetBanking
 			this.profilePassword = profilePassword;
 		}
 		
-
+		@Override
+		public String toString() {
+			return "InternetBanking [userId=" + userId + ", accountDetails=" + accountDetails + ", password=" + password
+					+ ", profilePassword=" + profilePassword + "]";
+		}
 
 }

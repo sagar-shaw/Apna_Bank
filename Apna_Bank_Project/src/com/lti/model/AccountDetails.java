@@ -42,7 +42,7 @@ public class AccountDetails
 		public String toString() {
 			return "AccountDetails [accountNo=" + accountNo + ", accountType=" + accountType + ", ifsccode=" + ifsccode
 					+ ", balance=" + balance + ", internetBanking=" + internetBanking + ", status=" + status
-					+ ", openingDate=" + openingDate + ", accountHolder=" + accountHolder + "]";
+					+ ", openingDate=" + openingDate + "]";
 		}
 
 		public AccountType getAccountType() {

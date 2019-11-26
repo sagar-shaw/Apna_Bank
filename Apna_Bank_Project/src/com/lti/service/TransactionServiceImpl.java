@@ -56,7 +56,6 @@ public class TransactionServiceImpl implements TransactionService
 	@Override
 	public Transaction findById(int transactionId) {
 		return transactionRepository.findById(transactionId);
-
 	}
 
 	@Override

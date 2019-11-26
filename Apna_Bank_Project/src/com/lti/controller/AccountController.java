@@ -2,6 +2,7 @@ package com.lti.controller;
 
 import java.sql.Date;
 import java.util.Calendar;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,9 +18,11 @@ import com.lti.model.AccountDetails;
 import com.lti.model.AccountHolder;
 import com.lti.model.AccountType;
 import com.lti.model.CardDetails;
+import com.lti.model.InternetBanking;
 import com.lti.service.AccountDetailsService;
 import com.lti.service.AccountHolderService;
 import com.lti.service.CardDetailsService;
+import com.lti.service.TransactionService;
 
 @Controller
 @SessionAttributes("account")
@@ -32,6 +35,9 @@ public class AccountController
 	@Autowired
 	CardDetailsService cdservice;
 	
+	@Autowired
+	TransactionService tservice;
+	
 	
 	@ModelAttribute("account")
 	 public AccountDetails setUpUserForm()
@@ -40,12 +46,12 @@ public class AccountController
 	 }
 	
 	@RequestMapping(value="/createAccount",method=RequestMethod.POST)
-	public ModelAndView addAccountHolder(@SessionAttribute("AccountHolder") AccountHolder accountHolder, String ifsccode,String type, @ModelAttribute("account") AccountDetails account )
+	public ModelAndView addAccountHolder(@SessionAttribute("AccountHolder") AccountHolder accountHolder, String ifsccode,String type, @ModelAttribute("account") AccountDetails ac)
 	{
 		
 		System.out.println("Through session :"+accountHolder);
 		ModelAndView model=null;
-		account=new AccountDetails();
+		AccountDetails account=new AccountDetails();
 		
 		int typeId=Integer.parseInt(type);
 		AccountType at=new AccountType();
@@ -116,6 +122,46 @@ public class AccountController
 		System.out.println("\n\n Credit Card : "+c2);
 		return model;
 		
+	}
+	
+	@RequestMapping(value="/summary",method=RequestMethod.POST)
+	public ModelAndView accountSummary(@SessionAttribute("User") InternetBanking ac)
+	{
 		
+		ModelAndView model;
+		
+		AccountDetails details=service.findById(ac.getAccountDetails().getAccountNo());
+		List<com.lti.model.Transaction> list=tservice.findAll();
+		if(details!=null)
+		{
+			model=new  ModelAndView("summary");
+			model.addObject("transactionlist",list);
+			model.addObject("accountdetails",details);
+		}
+		else
+		{
+			model=new  ModelAndView("loginFailed");
+		}
+	 
+		return model;
+	}
+	@RequestMapping(value="/display",method=RequestMethod.POST)
+	public ModelAndView accountDisplay(@SessionAttribute("User") InternetBanking ac)
+	{
+	
+		ModelAndView model;
+		AccountDetails details=service.findById(ac.getAccountDetails().getAccountNo());
+		if(details!=null)
+		{
+			model=new  ModelAndView("accountStatement");
+			model.addObject("accountdetails",details);
+		}
+		else
+		{
+			model=new  ModelAndView("loginFailed");
+		}
+	 
+		return model;
+
 	}
 }
