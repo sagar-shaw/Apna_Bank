@@ -51,7 +51,7 @@ public class TransactionController {
 		System.out.println("-----------in controller--------");
 		if(cd==null)
 		{
-			String redirectUrl="http://localhost:8083/TestClient/failure.jsp";
+			String redirectUrl="http://localhost:5050/OnlineShoppingProject/failure";
 			model= new ModelAndView("redirect:" + redirectUrl);
 			return model;
 		}
@@ -65,7 +65,7 @@ public class TransactionController {
 		Transaction t2=service.IMPSTransaction(t1);
 		if(t2==null)
 		{
-			String redirectUrl="http://localhost:8083/TestClient/success.jsp";
+			String redirectUrl="http://localhost:5050/OnlineShoppingProject/success";
 			model= new ModelAndView("redirect:" + redirectUrl);
 		}	
 		else

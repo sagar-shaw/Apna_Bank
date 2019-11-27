@@ -24,6 +24,7 @@ public class TransactionRepositoryImpl implements TransactionRepository
 	{
 		System.out.println("---in repo---");
 		em.persist(transaction);
+		System.out.println(transaction);
 		return transaction;
 	}
 	@Transactional
@@ -48,6 +49,14 @@ public class TransactionRepositoryImpl implements TransactionRepository
 	public List<Transaction> findAll()
 	{
 		String q="Select a from Transaction a";
+		TypedQuery<Transaction> query=em.createQuery(q,Transaction.class);
+		List<Transaction> list=query.getResultList();
+		System.out.println(list);
+		return list;
+	}
+	public List<Transaction> findByAccountNo(long accountNo)
+	{
+		String q="Select a from Transaction a where a.accountDetails.accountNo="+accountNo;
 		TypedQuery<Transaction> query=em.createQuery(q,Transaction.class);
 		List<Transaction> list=query.getResultList();
 		System.out.println(list);

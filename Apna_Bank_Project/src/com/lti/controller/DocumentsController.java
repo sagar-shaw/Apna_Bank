@@ -11,9 +11,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.lti.model.AccountDetails;
 import com.lti.model.AccountHolder;
@@ -29,8 +29,9 @@ public class DocumentsController
 	DocumentsService documentsService;
 	
 	@RequestMapping(value = "/documentUpload", method = RequestMethod.POST)
-	public void uploadMultipleFileHandler(@RequestParam("file") MultipartFile[] files,@SessionAttribute("AccountHolder") AccountHolder accountHolder,@SessionAttribute("account") AccountDetails account)
+	public ModelAndView uploadMultipleFileHandler(@RequestParam("file") MultipartFile[] files,@SessionAttribute("AccountHolder") AccountHolder accountHolder,@SessionAttribute("account") AccountDetails account)
 	{
+		ModelAndView model=null;
 		if (files.length != 3)
 			System.out.println("Mandatory information missing"); 
 		String documentNames[]=new String[3];
@@ -40,10 +41,7 @@ public class DocumentsController
 		for (int i = 0; i < 3; i++)
 		{
 			MultipartFile file = files[i];
-			//String name = "abc.pdf";//names[i]+".pdf";
-			//if(i==3)
-			//	name=accountHolder.getCustomerId()+".pdf";
-			//documentNames[i]=name;
+
 			try 
 			{
 				byte[] bytes = file.getBytes();
@@ -73,9 +71,9 @@ public class DocumentsController
 		d.setAccountNo(account.getAccountNo());
 		d.setPanCardNo(documentNames[1]);
 		d.setPhoto(documentNames[2]);
-		documentsService.add(d);
-		System.out.println(d);
-		
+		Documents d1=documentsService.add(d);
+		model=new ModelAndView("thankyouCreate");
+		return model;
 	}
 }
 	

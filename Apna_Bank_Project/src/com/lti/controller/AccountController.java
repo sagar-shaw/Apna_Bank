@@ -65,22 +65,23 @@ public class AccountController
 		java.sql.Date date=new java.sql.Date(millis);    
 		account.setOpeningDate(date);
 		
-		account.setStatus("Active");
+		account.setStatus("Inactive");
 		
 		long customerId=accountHolder.getCustomerId();
 		AccountHolder ah=new AccountHolder();
 		ah.setCustomerId(customerId);
 		account.setAccountholder(ah);
 		AccountDetails a=service.add(account);
-		
 		System.out.println(a);
+		ac=service.findById(account.getAccountNo());
+		System.out.println("In session :"+a);
 		if(a==null)
 		{
 			model=new ModelAndView("AccountNotAdded");	
 		}
 		else
 		{
-			String redirectUrl="addAccountHolder.jsp";
+			String redirectUrl="documentation.jsp";
 			model= new ModelAndView("redirect:" + redirectUrl);
 		}
 		
@@ -124,17 +125,22 @@ public class AccountController
 		
 	}
 	
-	@RequestMapping(value="/summary",method=RequestMethod.POST)
+	@RequestMapping(value="/summary")
 	public ModelAndView accountSummary(@SessionAttribute("User") InternetBanking ac)
 	{
 		
 		ModelAndView model;
 		
 		AccountDetails details=service.findById(ac.getAccountDetails().getAccountNo());
-		List<com.lti.model.Transaction> list=tservice.findAll();
+		System.out.println("Account :"+details);
+		List<com.lti.model.Transaction> list=tservice.findByAccountNo(details.getAccountNo());
+		System.out.println("------------------------\nList"+list);
 		if(details!=null)
 		{
-			model=new  ModelAndView("summary");
+			String redirectUrl="maindashboard.jsp#accountSummary";
+			//model= new ModelAndView("redirect:" + redirectUrl);
+			//model=new  ModelAndView("maindashboard#accountSummary");
+			model= new ModelAndView("summary");
 			model.addObject("transactionlist",list);
 			model.addObject("accountdetails",details);
 		}

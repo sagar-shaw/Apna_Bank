@@ -11,5 +11,6 @@ public interface TransactionRepository
 	public Transaction delete(Transaction transaction);
 	public Transaction findById(int transactionId);
 	List<Transaction> findAll();
+	public List<Transaction> findByAccountNo(long accountNo);
 
 }

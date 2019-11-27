@@ -1,5 +1,6 @@
 package com.lti.model;
 
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -28,7 +29,7 @@ public class AccountHolder
 	String firstName;
 	String middleName;
 	String lastName;
-	String dateOfBirth;//dateOfBirth
+	Date dateOfBirth;//dateOfBirth
 	String gender;
 	String emailId;
 	long mobileNo;
@@ -58,7 +59,7 @@ public AccountHolder() {
 
 
 public AccountHolder(long customerId, String title, String firstName, String middleName, String lastName,
-		String dateOfBirth, String gender, String emailId, long mobileNo, long adhaarCardNo, String panCardNo,
+		Date dateOfBirth, String gender, String emailId, long mobileNo, long adhaarCardNo, String panCardNo,
 		Address residentialAddress, Address permanentAddress, String occupation, String nationality) {
 	super();
 	this.customerId = customerId;
@@ -139,13 +140,21 @@ public void setLastName(String lastName) {
 	this.lastName = lastName;
 }
 
-public String getDateOfBirth() {
+
+
+public Date getDateOfBirth() {
 	return dateOfBirth;
 }
 
-public void setDateOfBirth(String dateOfBirth) {
+
+
+
+public void setDateOfBirth(Date dateOfBirth) {
 	this.dateOfBirth = dateOfBirth;
 }
+
+
+
 
 public String getGender() {
 	return gender;

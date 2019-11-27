@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="email", method="POST">
-<input type="submit" value="email send">
-</form>
+	<form action="email" , method="POST">
+		<input type="submit" value="email send">
+	</form>
 </body>
 </html>

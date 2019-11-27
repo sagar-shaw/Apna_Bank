@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.lti.model.AccountDetails;
@@ -67,13 +68,43 @@ public class TransactionServiceImpl implements TransactionService
 	public Transaction IMPSTransaction(Transaction t) 
 	{
 		System.out.println("---in transaction service---\n");
-		withdrawn(t.getAccountDetails().getAccountNo(),t.getAmount());
+		withdraw(t.getAccountDetails().getAccountNo(),t.getAmount());
 		deposit(t.getRecipentAccountNo(), t.getAmount());	
+		return null;
+	}
+	public Transaction NEFTTransaction(Transaction t)
+	{
+		float charge=0.0f;
+		float amount=t.getAmount();
+		if(amount > 200000)
+				throw new CannotCreateTransactionException("Maximum limit for NEFT transfer is Rs. 2 Lacs");
+			else if(amount <=10000)
+				charge = 1.18f;
+			else if(amount<10000 && amount>100000)
+				charge= 2.36f;
+			else if(amount<100000 && amount>200000)
+				charge= 3.54f;
+		withdraw(t.getAccountDetails().getAccountNo(),(t.getAmount()+charge));
+		deposit(t.getRecipentAccountNo(), t.getAmount());	
+		return null;
+	}
+	public Transaction RTGSTransaction(Transaction t)
+	{
+		float charge=0.0f;
+		float amount=t.getAmount();
+		if(amount < 200000) 
+				throw new CannotCreateTransactionException("Minimum limit for RTGS transfer is Rs. 2 Lacs");
+		else if(amount>= 200000 && amount<=500000)
+				charge = 5.90f;
+		else if(amount >=500000 && amount<=100000)
+				charge=11.80f;
+		withdraw(t.getAccountDetails().getAccountNo(),(t.getAmount()+charge));
+		deposit(t.getRecipentAccountNo(), t.getAmount());
 		return null;
 	}
 
 	@Override
-	public void withdrawn(long accountNo, float amount) 
+	public void withdraw(long accountNo, float amount) 
 	{
 		AccountDetails ad=ads.findById(accountNo);
 		System.out.println("\n\n---in withdraw---\n"+ad);
@@ -92,6 +123,11 @@ public class TransactionServiceImpl implements TransactionService
 		System.out.println("\n\n Updated in oject :"+ad);
 		ad=ads.update(ad);
 		System.out.println("\n\n Updated in DB :"+ad);
+	}
+
+	@Override
+	public List<Transaction> findByAccountNo(long accountNo) {
+		return transactionRepository.findByAccountNo(accountNo);
 	}
 
 }

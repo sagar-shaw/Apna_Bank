@@ -1,0 +1,15 @@
+@CHARSET "ISO-8859-1";
+
+html, body, h1, h2, h3, h4, h5 {
+	font-family: "Raleway", sans-serif
+}
+
+.grad1 {
+	background: linear-gradient(to top left, #000000 0%, #ff5751 25%, #ff9f51 50%,
+		#ffd151 25%);
+}
+
+.grad2 {
+	background: linear-gradient(to top left, rgb(247, 202, 201),
+		rgb(223, 207, 190));
+}

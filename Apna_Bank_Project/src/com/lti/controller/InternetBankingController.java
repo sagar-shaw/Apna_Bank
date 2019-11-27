@@ -42,30 +42,40 @@ public class InternetBankingController
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public ModelAndView addInternetBanking(@ModelAttribute InternetBanking ib)
 	{
-		
-		System.out.println("in register");
 		ModelAndView model=null;
-		AccountDetails ad=acservice.findById(ib.getAccountDetails().getAccountNo());
-		System.out.println(ib.getAccountDetails().getAccountNo());
-		System.out.println(ad);
-		if(ad!=null)
+		System.out.println(ib);
+		if(ib!=null)
 		{
-			InternetBanking ib1=service.add(ib);
-			model=new ModelAndView("registered");	
+			System.out.println("in register");
+			System.out.println(ib.getAccountDetails().getAccountNo());
+			AccountDetails ad=acservice.findById(ib.getAccountDetails().getAccountNo());
+		
+			System.out.println(ad);
+			if(ad!=null)
+			{
+				InternetBanking ib1=service.add(ib);
+				model=new ModelAndView("thankyou");	
+				AccountHolder ah=ahservice.findById(ad.getAccountHolder().getCustomerId());
+				String mailId=ah.getEmailId();
+				String subject="Registration form submitted Successfully";
+				String message="Dear "+ah.getFirstName()+",\n\t Greetings from APNA BANK!!"
+					+ "\n Your request for internet banking account has been successfully registered. Our team will soon process it."
+					+ " Till then enjoy banking with us. \n \n Best Regards,\n APNA BANK";
+				emailService.send(mailId,subject,message);
+			}
+			else
+			{
+				System.out.println("Account not found");
+				String redirectUrl="register.jsp?message=Account Not Found";
+				model= new ModelAndView("redirect:" + redirectUrl);
+			}	
 		}
 		else
 		{
 			System.out.println("Account not found");
-			model=new ModelAndView("notRegistered");	
+			String redirectUrl="register.jsp?message=Enter Details";
+			model= new ModelAndView("redirect:" + redirectUrl);
 		}
-		AccountHolder ah=ahservice.findById(ad.getAccountHolder().getCustomerId());
-		String mailId=ah.getEmailId();
-		String subject="Registration form submitted Successfully";
-		String message="Dear "+ah.getFirstName()+",\n\t Greetings from APNA BANK!!"
-				+ "\n Your request for internet banking account has been successfully registered. Our team will soon process it."
-				+ " Till then enjoy banking with us. \n \n Best Regards,\n APNA BANK";
-		emailService.send(mailId,subject,message);
-		
 		return model;
 		
 		
@@ -73,30 +83,33 @@ public class InternetBankingController
 	
 	
 	  @RequestMapping(value="/login",method=RequestMethod.POST) 
-	  public ModelAndView login(@ModelAttribute("User") InternetBanking user)
+	  public ModelAndView login(@ModelAttribute("User") InternetBanking user, int attempts)
 	  {
 		
 		  ModelAndView model=null;
+		  System.out.println(user);
+		  System.out.println("Remaining attempts : "+attempts);
 		  InternetBanking incomingUser=service.findById(user.getUserId());
 		  user.setAccountDetails(incomingUser.getAccountDetails());
-		  user.setPassword(null);
 		  System.out.println(incomingUser);
 		  if(incomingUser!=null)
 		  {
-			  if(incomingUser.getPassword().equals(incomingUser.getPassword()))
+			  if(incomingUser.getPassword().equals(user.getPassword()))
 			  {
-				  model= new ModelAndView("loginSuccess"); 
+				  model= new ModelAndView("maindashboard"); 
 			  }
 			  else
 			  {
-				  model= new ModelAndView("loginFailed"); 
-				  System.out.println("Incorrect Password");
+				 
+				  String redirectUrl="userlogin.jsp?attempts="+(attempts-1);
+				  model= new ModelAndView("redirect:" + redirectUrl);
 			  }
 		  }
 		  else
 		  { 
 			  model= new ModelAndView("loginfailed"); 
 		  }
+		  user.setPassword(null);
 		  return model;
 	  
 	  }

@@ -32,7 +32,7 @@ public class AccountHolderController
 			AccountHolder a1=service.add(a);
 			if(a1!=null) 
 			{
-				String redirectUrl="addAccountHolder.jsp";
+				String redirectUrl="banktype.jsp";
 				model= new ModelAndView("redirect:" + redirectUrl);
 			}
 			else

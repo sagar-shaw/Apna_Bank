@@ -15,7 +15,15 @@ public interface TransactionService {
 	Transaction findById(int transactionId);
 
 	List<Transaction> findAll();
+	
 	public Transaction IMPSTransaction(Transaction t);
-	public void withdrawn(long accountNo,float amount);
+	
+	public Transaction RTGSTransaction(Transaction t);
+	
+	public Transaction NEFTTransaction(Transaction t);
+	
+	public void withdraw(long accountNo,float amount);
+	public List<Transaction> findByAccountNo(long accountNo);
+	
 	public void deposit(long accountNo,float amount);
 }

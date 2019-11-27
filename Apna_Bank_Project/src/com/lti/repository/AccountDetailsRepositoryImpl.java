@@ -42,6 +42,8 @@ public class AccountDetailsRepositoryImpl implements AccountDetailsRepository
 	public AccountDetails findById(long accountNo) 
 	{
 		AccountDetails a= em.find(AccountDetails.class, new Long (accountNo));
+		if(a==null)
+			return null;
 		System.out.println("in repo"+a);
 		 return a;
 	}
