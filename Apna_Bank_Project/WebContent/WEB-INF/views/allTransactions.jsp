@@ -9,12 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Account No :${details.accountNo}
-	<br>
-	Account Balance : ${details.balance}
-	<br>
-	<br> Recent Transaction :
-	<br>
+<%! String msg="abc";%>
+<% msg=request.getParameter("msg");%>
+	<% if(msg.equals("success")){ %>
 	<table border="1px">
 		<tr>
 			<th>TransactionId</th>
@@ -24,7 +21,7 @@
 			<th>Amount</th>
 			<th>Status</th>
 		</tr>
-		<c:forEach var="list" items="${transactionlist}" begin="1" end="5">
+		<c:forEach var="list" items="${transactionList}" begin="1" end="100">
 			<tr>
 				<td>
 					<p>${list.transactionId}</p>
@@ -42,5 +39,11 @@
 				</td>
 			</tr>
 		</c:forEach>
+	</table>
+	<% } else { %>
+		<h3 style="colour:red"> No transactions</h3> 
+	<% } %>
+
 </body>
 </html>
+

@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 
@@ -9,12 +10,19 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Account No :${details.accountNo}
+<%! String message=new String("abc");%>
+<% message=request.getParameter("msg");%>
+	Account Number :&nbsp ${account.accountNo}<br>
+	Account Balance :&nbsp ${account.balance}
 	<br>
-	Account Balance : ${details.balance}
+	<form action ="accountStatement" method="POST" >
+	<br> Transactions From : &nbsp&nbsp <input type="date" name="fromDate">
 	<br>
-	<br> Recent Transaction :
-	<br>
+	<br> Transactions To : &nbsp&nbsp <input type="date" name="toDate">
+	<input type="submit" value="Search">
+	</form>
+
+	
 	<table border="1px">
 		<tr>
 			<th>TransactionId</th>
@@ -24,7 +32,7 @@
 			<th>Amount</th>
 			<th>Status</th>
 		</tr>
-		<c:forEach var="list" items="${transactionlist}" begin="1" end="5">
+		<c:forEach var="list" items="${transactionList}" begin="1" end="10">
 			<tr>
 				<td>
 					<p>${list.transactionId}</p>
@@ -42,5 +50,8 @@
 				</td>
 			</tr>
 		</c:forEach>
+	</table>
+	
+
 </body>
 </html>

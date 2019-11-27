@@ -19,6 +19,7 @@ import com.lti.model.AccountHolder;
 import com.lti.model.AccountType;
 import com.lti.model.CardDetails;
 import com.lti.model.InternetBanking;
+import com.lti.model.Transaction;
 import com.lti.service.AccountDetailsService;
 import com.lti.service.AccountHolderService;
 import com.lti.service.CardDetailsService;
@@ -38,6 +39,8 @@ public class AccountController
 	@Autowired
 	TransactionService tservice;
 	
+	@Autowired
+	AccountHolderService ahService; 
 	
 	@ModelAttribute("account")
 	 public AccountDetails setUpUserForm()
@@ -125,7 +128,7 @@ public class AccountController
 		
 	}
 	
-	@RequestMapping(value="/summary")
+	@RequestMapping(value="/accountSummary")
 	public ModelAndView accountSummary(@SessionAttribute("User") InternetBanking ac)
 	{
 		
@@ -142,7 +145,7 @@ public class AccountController
 			//model=new  ModelAndView("maindashboard#accountSummary");
 			model= new ModelAndView("summary");
 			model.addObject("transactionlist",list);
-			model.addObject("accountdetails",details);
+			model.addObject("details",details);
 		}
 		else
 		{
@@ -151,23 +154,41 @@ public class AccountController
 	 
 		return model;
 	}
-	@RequestMapping(value="/display",method=RequestMethod.POST)
-	public ModelAndView accountDisplay(@SessionAttribute("User") InternetBanking ac)
+	@RequestMapping(value="/accountStatement")
+	public ModelAndView accountStatement(Date dateFrom,Date dateTo,@SessionAttribute("User") InternetBanking user)
 	{
-	
+		AccountDetails ac=service.findById(user.getAccountDetails().getAccountNo());
 		ModelAndView model;
-		AccountDetails details=service.findById(ac.getAccountDetails().getAccountNo());
-		if(details!=null)
+		List<Transaction> list=tservice.getAccountStatement(ac.getAccountNo(),dateFrom,dateTo);
+		
+		if(list!=null)
 		{
-			model=new  ModelAndView("accountStatement");
-			model.addObject("accountdetails",details);
+			model=new ModelAndView("accountStatement?msg=success");
+			model.addObject("account",ac);
+			model.addObject("transactionList",list);
 		}
 		else
 		{
-			model=new  ModelAndView("loginFailed");
+			model=new ModelAndView("accountStatement?msg=failure");
+			model.addObject("account",ac);
+			model.addObject("transactionList",list);
 		}
-	 
 		return model;
-
 	}
+	
+	@RequestMapping(value="/accountDetails")
+	public ModelAndView accountDetails(@SessionAttribute("User") InternetBanking user)
+	{
+		AccountDetails ac=service.findById(user.getAccountDetails().getAccountNo());
+		AccountHolder ah=ahService.findById(ac.getAccountHolder().getCustomerId());
+		ModelAndView model=new ModelAndView("accDetails");
+		model.addObject("account",ac);
+		model=new ModelAndView("accDetails");
+		model.addObject("account",ac);
+		model.addObject("customer",ah);
+		return model;
+	}
+
+	
+	
 }

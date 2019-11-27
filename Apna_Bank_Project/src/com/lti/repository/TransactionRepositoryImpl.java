@@ -1,5 +1,6 @@
 package com.lti.repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -54,9 +55,19 @@ public class TransactionRepositoryImpl implements TransactionRepository
 		System.out.println(list);
 		return list;
 	}
+	@Override
 	public List<Transaction> findByAccountNo(long accountNo)
 	{
 		String q="Select a from Transaction a where a.accountDetails.accountNo="+accountNo;
+		TypedQuery<Transaction> query=em.createQuery(q,Transaction.class);
+		List<Transaction> list=query.getResultList();
+		System.out.println(list);
+		return list;
+	}
+	@Override
+	public List<Transaction> getAccountStatement(long accountNo,Timestamp t1,Timestamp t2)
+	{
+		String q="Select a from Transactions a where a.accountDetails.accountNo="+accountNo+"AND a.transactionTime BETWEEN "+t1+"AND"+t2;
 		TypedQuery<Transaction> query=em.createQuery(q,Transaction.class);
 		List<Transaction> list=query.getResultList();
 		System.out.println(list);

@@ -9,12 +9,17 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Account No :${details.accountNo}
+
+
+<%! String msg="abc";%>
+<% msg=request.getParameter("msg");%>
+
+
+	<form action="accountTransactions" method="POST">
+	Enter Account No : &nbsp <input type="number" name="accountNo">
 	<br>
-	Account Balance : ${details.balance}
-	<br>
-	<br> Recent Transaction :
-	<br>
+	<input type="submit" value="Search">
+	<%  if(msg.equals("success")){ %>
 	<table border="1px">
 		<tr>
 			<th>TransactionId</th>
@@ -24,7 +29,7 @@
 			<th>Amount</th>
 			<th>Status</th>
 		</tr>
-		<c:forEach var="list" items="${transactionlist}" begin="1" end="5">
+		<c:forEach var="list" items="${transactionList}" begin="1" end="100">
 			<tr>
 				<td>
 					<p>${list.transactionId}</p>
@@ -42,5 +47,12 @@
 				</td>
 			</tr>
 		</c:forEach>
+	</table>
+	<% } else if(msg.equals("failure")){ %>
+		<h3 style="colour:red"> No transactions</h3> 
+	<% } %>
+
 </body>
 </html>
+
+

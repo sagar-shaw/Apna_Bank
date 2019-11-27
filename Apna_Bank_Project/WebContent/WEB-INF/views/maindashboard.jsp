@@ -27,6 +27,17 @@
     background-size:80% 80%;
     background-position: center;
   } */
+  
+  .btn {
+	border: none;
+	color: black;
+	padding: 14px 28px;
+	font-size: 16px;
+	cursor: pointer;
+	height: 70px;
+	width: 300px;
+}
+
 .accno {
 	background: rgba(255, 255, 255, 0.4);
 	border: none;
@@ -497,21 +508,47 @@ input[type=text] {
 	</div>
 	<br>
 	<div class="w3-bar-block ">
-		<a href="#"
+		<!-- <a href="#"
 			class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
 			onclick="w3_close()" title="close menu"><i
 			class="fa fa-remove fa-fw"></i> Close Menu</a> 
 			<a href="#"
 			class="w3-bar-item w3-button w3-padding w3-hover-black "
 			onclick="openCity(event, 'accountDetails')"><i
-			class="fa fa-bank fa-fw"></i> Account Details</a>
+			class="fa fa-bank fa-fw"></i> Account Details</a> -->
 			 
 			 
 			 
-			 <form action="summary" method="POST"><input type="submit" value=" Account Summary"></form>
+			<form action="accountSummary"  class="w3-bar-item w3-button w3-padding w3-hover-black" method="POST" target="blank">
+			<i class="fa fa-history fa-fw"  ></i>
+			<input type="submit" value=" Account Summary">
+			</form>
+			<form action="accountDetails"  class="w3-bar-item w3-button w3-padding w3-hover-black" method="POST" target="blank">
+			<i class="fa fa-history fa-fw"  ></i>
+			<input type="submit" value=" Account Details">
+			</form>
+			
+			<form action="impsTransaction.jsp"  class="w3-bar-item w3-button w3-padding w3-hover-black" method="POST" target="blank">
+			<i class="fa fa-exchange fa-fw"></i>
+			<input  type="submit" value="IMPS Fund Transfer">
+			</form>
+			
+			<form action="rtgsTransaction.jsp"  class="w3-bar-item w3-button w3-padding w3-hover-black" method="POST" target="blank">
+			<i class="fa fa-exchange fa-fw"></i>
+			<input  type="submit" value="RTGS Fund Transfer">
+			</form>
+			
+			<form action="addPayee.jsp" class="w3-bar-item w3-button w3-padding w3-hover-black" method="POST" target="blank">
+			<i class="fa fa-user-plus fa-fw"></i>
+			<input  type="submit" value=" Add Beneficiary">
+			</form>
+			<form action="card" class="w3-bar-item w3-button w3-padding w3-hover-black" method="POST" target="blank">
+			<i class="fa fa-user-plus fa-fw"></i>
+			<input  type="submit" value=" Card">
+			</form>
 			 
 			 
-			<a href="summary"
+			<!-- <a href="summary"
 			class="w3-bar-item w3-button w3-padding w3-hover-black"
 			onclick="openCity(event, 'accountStatement')"></a>
 			<i
@@ -521,7 +558,7 @@ input[type=text] {
 			class="fa fa-exchange fa-fw"></i> Fund Transfer</a> <a href="#"
 			class="w3-bar-item w3-button w3-padding w3-hover-black"
 			onclick="openCity(event, 'addBeneficiary')"><i
-			class="	fa fa-user-plus fa-fw"></i> Add Beneficiary</a> <br>
+			class="	fa fa-user-plus fa-fw"></i> Add Beneficiary</a> <br> -->
 		<br>
 
 	</div>

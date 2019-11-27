@@ -39,8 +39,8 @@ background-image: linear-gradient(black, red, orange);
 						<input type="submit" class="login" value="Login" onclick="myFunction()">
 						<input type="text" name="attempts" value="<%= (attempts) %>" hidden readonly>
 					</form>
-					<h3><a href="forgotPassword.jsp" style="color:blue" >Forgot username</a>&nbsp&nbsp&nbsp
-					<a href="forgetUserId.jsp" style="color:blue">Forgot username</a><h3>
+					<h3><a href="forgotPassword.jsp" style="color:blue" >Forgot Password</a>&nbsp&nbsp&nbsp
+					<a href="forgotUserId.jsp" style="color:blue">Forgot username</a><h3>
 					</center>
 					<br><br>
 					<center><h3 style="color:black"><%=attempts %>&nbspAttempts left..</center>

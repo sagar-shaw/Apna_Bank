@@ -1,7 +1,7 @@
 package com.lti.service;
 
 import java.sql.Timestamp;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +34,7 @@ public class TransactionServiceImpl implements TransactionService
 	@Transactional
 	public Transaction add(Transaction transaction)
 	{
-		Date date=new Date();
+		java.util.Date date=new java.util.Date();
 		Timestamp ts = new Timestamp(date.getTime());
 		System.out.println(ts);
 		transaction.setTransactionTime(ts);
@@ -129,5 +129,13 @@ public class TransactionServiceImpl implements TransactionService
 	public List<Transaction> findByAccountNo(long accountNo) {
 		return transactionRepository.findByAccountNo(accountNo);
 	}
+	@Override
+	public List<Transaction> getAccountStatement(long accountNo, Date dateFrom,Date dateTo)
+	{
+		java.sql.Timestamp t1 = new java.sql.Timestamp(dateFrom.getTime());
+		java.sql.Timestamp t2 = new java.sql.Timestamp(dateTo.getTime());
+		return transactionRepository.getAccountStatement(accountNo,t1,t2);
+	}
+
 
 }

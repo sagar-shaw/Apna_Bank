@@ -1,5 +1,6 @@
 package com.lti.service;
 
+import java.util.Date;
 import java.util.List;
 
 import com.lti.model.Transaction;
@@ -26,4 +27,5 @@ public interface TransactionService {
 	public List<Transaction> findByAccountNo(long accountNo);
 	
 	public void deposit(long accountNo,float amount);
+	List<Transaction> getAccountStatement(long accountNo, java.sql.Date dateFrom, java.sql.Date dateTo);
 }

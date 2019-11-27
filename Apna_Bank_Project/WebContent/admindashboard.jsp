@@ -53,7 +53,7 @@
 		<h5>Quick Links</h5>
 	</div>
 	<div class="w3-bar-block">
-		<a href="#"
+		<!-- <a href="#"
 			class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black"
 			onclick="w3_close()" title="close menu"><i
 			class="fa fa-remove fa-fw"></i>  Close Menu</a> <a href="#"
@@ -62,7 +62,21 @@
 			class="w3-bar-item w3-button w3-padding w3-hover-black"><i
 			class="fa fa-history fa-fw"></i>  All Transactions</a> <a href="#"
 			class="w3-bar-item w3-button w3-padding w3-hover-black"><i
-			class="fa fa-sign-out fa-fw"></i> Log out</a>
+			class="fa fa-sign-out fa-fw"></i> Log out</a> -->
+			
+			
+			<form action="admin"  class="w3-bar-item w3-button w3-padding w3-hover-black" method="POST" target="blank">
+			<i class="fa fa-history fa-fw"  ></i>
+			<input type="submit" value=" Pending Requests">
+			</form>
+			<form action="allTransactions"  class="w3-bar-item w3-button w3-padding w3-hover-black" method="POST" target="blank">
+			<i class="fa fa-history fa-fw"  ></i>
+			<input type="submit" value=" All Transactions">
+			</form>
+			<form action="accountTransactions.jsp"  class="w3-bar-item w3-button w3-padding w3-hover-black" method="POST" target="blank">
+			<i class="fa fa-history fa-fw"  ></i>
+			<input type="submit" value=" Account Transaction">
+			</form>
 	</div>
 	<br>
 	<br>
